@@ -5,6 +5,7 @@ import 'package:dti/app_drawer.dart';
 import 'package:dti/screens/load_picture.dart';
 import 'package:dti/painters/wave_painter.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 class Home extends StatefulWidget {
@@ -75,7 +76,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         ),
         centerTitle: true,
         iconTheme: IconThemeData(
-          color: Colors.white, // Change to your desired color
+          color: Colors.white,
           )
         ),
       drawer: const AppDrawer(),
@@ -96,34 +97,29 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         ),
         child: Row(
           children: [
-            Stack(
-
-            ),
             Expanded(
               flex: 1,
               child: Stack(
                 children: [
-                  // Positioned(
-                  //   top: 0,
-                  //   left: 0,
-                  //   child: ClipRect(
-                  //     child: Align(
-                  //       alignment: Alignment.topCenter,
-                  //       heightFactor: 1.0,
-                  //       child: Image.asset('assets/pattern.jpg', fit: BoxFit.cover,),
-                  //     ),
-                  //   ),
-                  // ),
-                  AnimatedBuilder(
-                    animation: _waveAnimation,
-                    builder: (context, child) {
-                      return ClipPath(
-                        clipper: WavePainter(_waveAnimation.value),
-                        child: Container(
-                          color: Color.fromRGBO(255, 255, 255, 0.9)
-                        ),
-                      );
-                    },
+                  Positioned.fill(
+                    child: AnimatedBuilder(
+                      animation: _waveAnimation,
+                      builder: (context, child) {
+                        return ClipPath(
+                          clipper: WavePainter(_waveAnimation.value),
+                          child: ColorFiltered(
+                            colorFilter: ColorFilter.mode(
+                              Color.fromRGBO(255, 255, 255, 1),
+                              BlendMode.modulate,
+                            ),
+                            child: Image.asset(
+                              'assets/pattern.jpg',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -224,7 +220,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           ),
                           child: Text(
                             "Empezar",
-                            style: TextStyle(fontSize: 20, color: Color.fromRGBO(255, 255, 255, 1)),
+                            style: GoogleFonts.outfit(fontSize: 20, color: Color.fromRGBO(255, 255, 255, 1)),
                           ),
                         ),
                       ],

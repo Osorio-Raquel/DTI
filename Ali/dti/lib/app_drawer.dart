@@ -1,6 +1,7 @@
 import 'package:dti/painters/dti_logo_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -29,7 +30,11 @@ class AppDrawer extends StatelessWidget {
             children: [
               DrawerHeader(
                 decoration: const BoxDecoration(
-                  color: Color.fromRGBO(207, 59, 32, 1),
+                  gradient: LinearGradient(colors: [
+                    Color.fromRGBO(207, 59, 32, 0.9),
+                    Color.fromRGBO(251, 194, 181, 1),
+                    ],
+                    transform: GradientRotation(-0.6))
                 ),
                 child: Row(
                   children: [
@@ -43,9 +48,10 @@ class AppDrawer extends StatelessWidget {
                     Expanded(
                       child: Text(
                         'Dress\nTo\nImpress',
-                        style: TextStyle(
+                        style: GoogleFonts.federo(
                           color: Colors.white,
-                          fontSize: 26
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold
                         ),
                         softWrap: true,
                       ),
@@ -55,21 +61,21 @@ class AppDrawer extends StatelessWidget {
               ),
               ListTile(
                 leading: const Icon(Icons.home, color: Color.fromRGBO(56, 50, 52, 1),),
-                title: const Text('Home', style: TextStyle(color: Color.fromRGBO(56, 50, 52, 1)),),
+                title: Text('Home', style: GoogleFonts.outfit(color: Color.fromRGBO(56, 50, 52, 1)),),
                 onTap: () {
                   context.go('/');
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.info, color: Color.fromRGBO(56, 50, 52, 1),),
-                title: const Text('Acerca de la App', style: TextStyle(color: Color.fromRGBO(56, 50, 52, 1)),),
+                title: Text('Acerca de la App', style: GoogleFonts.outfit(color: Color.fromRGBO(56, 50, 52, 1)),),
                 onTap: () {
                   context.go('/about');
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.mail, color: Color.fromRGBO(56, 50, 52, 1),),
-                title: const Text('Contacto', style: TextStyle(color: Color.fromRGBO(56, 50, 52, 1)),),
+                title: Text('Contacto', style: GoogleFonts.outfit(color: Color.fromRGBO(56, 50, 52, 1)),),
                 onTap: () {
                   context.go('/contact');
                 },

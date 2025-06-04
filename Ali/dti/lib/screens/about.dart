@@ -37,9 +37,9 @@ class About extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Dress To Impress',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              Image.asset(
+                'assets/about.png',
+                fit: BoxFit.contain
               ),
               const SizedBox(height: 16),
               Text(

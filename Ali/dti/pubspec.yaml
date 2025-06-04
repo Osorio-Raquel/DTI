@@ -26,4 +26,7 @@ flutter:
     - assets/dti_logo.png
     - assets/pattern.jpg
     - assets/load_picture.png
+    - assets/results.png
+    - assets/contact.png
+    - assets/about.png
     - assets/click.mp3
