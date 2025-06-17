@@ -61,7 +61,7 @@ class _ResultsState extends State<Results> {
                                 fontSize: 30, 
                                 color: Color.fromRGBO(56, 50, 52, 1)),
                             ),
-                            Text('87\n', 
+                            Text('42\n', 
                               style: GoogleFonts.federo(
                                 fontSize: 50, 
                                 fontWeight: FontWeight.bold, 
@@ -79,9 +79,9 @@ class _ResultsState extends State<Results> {
                     ),
                   ),
                 ),
-                description('Blusa', 'Muy bonita'),
-                description('Faldita', 'Preciosa'),
-                description('Zapatitos Chic', 'Bellisimos'),
+                description('Top', 'Color: Negro\nEstilo: Deportivo\n Forma: Oversized\nTipo: Hoodie'),
+                description('Bottom', 'Color: Azul\nEstilo: Casual\n Forma: Oversized\nTipo: Pantalón'),
+                description('Zapatos', 'Color: Negro\nEstilo: Deportivo\n Forma: Tenis\nTipo: Zapatilla'),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Container(
@@ -143,10 +143,6 @@ class _ResultsState extends State<Results> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.asset('assets/pattern.jpg', width: 100, fit: BoxFit.scaleDown,),
-                  ),
                   Text(descr, style: GoogleFonts.outfit(fontSize: 22),),
                 ],
               )

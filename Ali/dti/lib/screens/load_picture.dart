@@ -14,25 +14,17 @@ class LoadPicture extends StatefulWidget {
 }
 
 class _LoadPictureState extends State<LoadPicture> {
-  File? _image;
+  File? _image1, _image2, _image3;
   final ImagePicker _picker = ImagePicker();
 
-  Future<void> _pickImageFromGallery() async {
+  Future<File?> _pickImageFromGallery() async {
     final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path);
-      });
-    }
+    return pickedFile != null ? File(pickedFile.path) : null;
   }
   
-  Future<void> _takePicture() async {
+  Future<File?> _takePicture() async {
     final XFile? pickedFile = await _picker.pickImage(source: ImageSource.camera);
-    if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path);
-      });
-    }
+    return pickedFile != null ? File(pickedFile.path) : null;
   }
 
   Future<void> _requestPermissions() async {
@@ -77,35 +69,37 @@ class _LoadPictureState extends State<LoadPicture> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Image.asset('assets/load_picture.png', width: 350),
-                imgUpload('¿Cómo luce tu top hoy?'),
-                imgUpload('¿Qué piensas usar para la parte de abajo?'),
-                imgUpload('¿Con qué zapatos complementarás tu look?'),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Color.fromRGBO(169, 208, 236, 1), Color.fromRGBO(251, 194, 181, 1)],
+                imgUpload('¿Cómo luce tu top hoy?', _image1, 1),
+                imgUpload('¿Qué piensas usar para la parte de abajo?', _image2, 2),
+                imgUpload('¿Con qué zapatos complementarás tu look?', _image3, 3),
+                if (_image1 != null && _image2 != null && _image3 != null) ...[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Color.fromRGBO(169, 208, 236, 1), Color.fromRGBO(251, 194, 181, 1)],
+                        ),
+                        borderRadius: BorderRadius.circular(15),
                       ),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => Results()));
-                      },
-                      icon: Icon(CupertinoIcons.sparkles, size: 40, color: Colors.white,),
-                      label: Text('Calcula mi estilo', style: GoogleFonts.federo(
-                        fontSize: 25, 
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
-                        shadowColor: Colors.transparent,
-                        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Results()));
+                        },
+                        icon: Icon(CupertinoIcons.sparkles, size: 40, color: Colors.white,),
+                        label: Text('Calcula mi estilo', style: GoogleFonts.federo(
+                          fontSize: 25, 
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+                          shadowColor: Colors.transparent,
+                          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                        ),
                       ),
                     ),
-                  ),
-                )
+                  )
+                ],
               ],
             ),
           ),
@@ -114,7 +108,7 @@ class _LoadPictureState extends State<LoadPicture> {
     );
   }
 
-  Widget imgUpload(String title) {
+  Widget imgUpload(String title, File? img, int imgNum) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
@@ -136,7 +130,6 @@ class _LoadPictureState extends State<LoadPicture> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Image Preview
                   Container(
                     width: 120,
                     height: 120,
@@ -144,18 +137,28 @@ class _LoadPictureState extends State<LoadPicture> {
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.grey.shade300,
                     ),
-                    child: _image == null
+                    child: img == null
                         ? const Icon(Icons.camera_alt, size: 50, color: Colors.grey)
-                        : Image.file(_image!, fit: BoxFit.cover),
+                        : Image.file(img, fit: BoxFit.cover),
                   ),
       
-                  // Camera/Gallery Buttons
                   Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
                         iconSize: 35,
-                        onPressed: _takePicture,
+                        onPressed: () async {
+                          final image = await _takePicture();
+                          if (image != null) {
+                            setState(() {
+                              switch(imgNum) {
+                                case 1: _image1 = image; break;
+                                case 2: _image2 = image; break;
+                                case 3: _image3 = image; break;
+                              }
+                            });
+                          }
+                        },
                         icon: Container(
                           decoration: const BoxDecoration(
                             color: Color.fromRGBO(1, 126, 137, 1),
@@ -168,7 +171,18 @@ class _LoadPictureState extends State<LoadPicture> {
                       ),
                       IconButton(
                         iconSize: 35,
-                        onPressed: _pickImageFromGallery,
+                        onPressed: () async {
+                          final image = await _pickImageFromGallery();
+                          if (image != null) {
+                            setState(() {
+                              switch(imgNum) {
+                                case 1: _image1 = image; break;
+                                case 2: _image2 = image; break;
+                                case 3: _image3 = image; break;
+                              }
+                            });
+                          }
+                        },
                         icon: Container(
                           decoration: const BoxDecoration(
                             color: Color.fromRGBO(1, 126, 137, 1),
@@ -183,23 +197,6 @@ class _LoadPictureState extends State<LoadPicture> {
                   ),
                 ],
               ),
-              if (_image != null) ...[
-                const SizedBox(height: 16),
-                ElevatedButton.icon(
-                  onPressed: () => print("Searching combinations..."),
-                  icon: const Icon(CupertinoIcons.sparkles),
-                  label: const Text("Buscar combinaciones"),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromRGBO(56, 52, 50, 1),
-                    foregroundColor: const Color.fromRGBO(169, 208, 236, 1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 24, vertical: 12),
-                  ),
-                ),
-              ],
             ],
           ),
         ),

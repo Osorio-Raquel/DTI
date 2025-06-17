@@ -31,7 +31,8 @@ class AppDrawer extends StatelessWidget {
               DrawerHeader(
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(colors: [
-                    Color.fromRGBO(207, 59, 32, 0.9),
+                    Color.fromRGBO(169, 208, 236, 1),
+                    Color.fromRGBO(169, 208, 236, 0.9),
                     Color.fromRGBO(251, 194, 181, 1),
                     ],
                     transform: GradientRotation(-0.6))

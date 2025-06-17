@@ -188,6 +188,66 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       );
                     },
                   ),
+                  AnimatedBuilder(
+                    animation: _starsController,
+                    builder: (context, child) {
+                      return Positioned(
+                        bottom: 40,
+                        left: 60,
+                        child: CustomPaint(
+                          painter: StarPainter(50, 50, _blinkAnimation.value),
+                        )
+                      );
+                    },
+                  ),
+                  AnimatedBuilder(
+                    animation: _starsController,
+                    builder: (context, child) {
+                      return Positioned(
+                        bottom: 60,
+                        right: 70,
+                        child: CustomPaint(
+                          painter: StarPainter(40, 40, _blinkAnimation.value),
+                        )
+                      );
+                    },
+                  ),
+                  AnimatedBuilder(
+                    animation: _starsController,
+                    builder: (context, child) {
+                      return Positioned(
+                        bottom: 130,
+                        right: 100,
+                        child: CustomPaint(
+                          painter: StarPainter(25, 30, _blinkAnimation.value),
+                        )
+                      );
+                    },
+                  ),
+                  AnimatedBuilder(
+                    animation: _starsController,
+                    builder: (context, child) {
+                      return Positioned(
+                        bottom: 180,
+                        left: 80,
+                        child: CustomPaint(
+                          painter: StarPainter(20, 20, _blinkAnimation.value),
+                        )
+                      );
+                    },
+                  ),
+                  AnimatedBuilder(
+                    animation: _starsController,
+                    builder: (context, child) {
+                      return Positioned(
+                        bottom: 240,
+                        right: 70,
+                        child: CustomPaint(
+                          painter: StarPainter(45, 45, _blinkAnimation.value),
+                        )
+                      );
+                    },
+                  ),
                   Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
