@@ -1,0 +1,33 @@
+name: dti_rvpod
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.0
+  image_picker: ^1.1.2
+  permission_handler: ^12.0.0+1
+  go_router: ^13.0.0
+  google_fonts: ^6.2.1
+  flutter_riverpod: ^2.6.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/dti_logo.png
+    - assets/pattern.jpg
+    - assets/load_picture.png
+    - assets/results.png
+    - assets/contact.png
+    - assets/about.png
+    - assets/click.mp3
