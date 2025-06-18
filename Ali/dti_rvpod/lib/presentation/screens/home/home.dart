@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:dti_rvpod/application/animation_providers.dart';
 import 'package:dti_rvpod/presentation/painters/dti_logo_painter.dart';
 import 'package:dti_rvpod/presentation/painters/star_painter.dart';

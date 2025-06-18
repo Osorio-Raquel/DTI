@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dti_rvpod/application/api_providers.dart';
 import 'package:dti_rvpod/application/load_picture_providers.dart';
 import 'package:dti_rvpod/presentation/screens/results.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,6 +19,8 @@ class LoadPicture extends ConsumerWidget {
     final image2 = ref.watch(image2Provider);
     final image3 = ref.watch(image3Provider);
     final picker = ref.read(imagePickerProvider);
+
+    final analysisNotifier = ref.read(outfitAnalysisProvider.notifier);
 
     Future<File?> pickImageFromGallery() async {
       final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -97,12 +100,28 @@ class LoadPicture extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: ElevatedButton.icon(
-                        onPressed: () {
-                          Navigator.push(
-                            context, 
-                            MaterialPageRoute(
-                              builder: (context) => const Results()
+                        onPressed: () async {
+                          final dialogContext = Navigator.of(context, rootNavigator: true).context;
+                          
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (dialogContext) => AlertDialog(
+                              content: Row(
+                                children: [
+                                  const CircularProgressIndicator(color: Color.fromRGBO(1, 126, 137, 1),),
+                                  const SizedBox(width: 16, height: 10),
+                                  Text('Analizando outfit...', style: GoogleFonts.outfit(),),
+                                ],
+                              ),
                             ),
+                          );
+
+                          await analysisNotifier.analyzeOutfit([image1, image2, image3]);
+                          Navigator.of(dialogContext).pop();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (currentContext) => const Results()),
                           );
                         },
                         icon: const Icon(
